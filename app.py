@@ -158,7 +158,7 @@ st.markdown("<h1 style='text-align:center;'>AI ENGINE RUL PREDICTION</h1>", unsa
 # ===============================
 # AI INPUT
 # ===============================
-st.subheader("AI Input")
+#st.subheader("AI Input")
 
 left, right = st.columns([2,1])
 
