@@ -10,7 +10,7 @@ import plotly.graph_objects as go
 import cv2
 import base64
 
-pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+# pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 
 st.set_page_config(page_title="AI Engine RUL", layout="wide")
 
@@ -110,39 +110,39 @@ div.stButton > button:hover {
 # FUNCTIONS
 # ===============================
 
-def preprocess_image(image):
-    img = np.array(image)
-    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    thresh = cv2.threshold(gray, 150, 255, cv2.THRESH_BINARY)[1]
-    return thresh
+# def preprocess_image(image):
+#     img = np.array(image)
+#     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+#     thresh = cv2.threshold(gray, 150, 255, cv2.THRESH_BINARY)[1]
+#     return thresh
     
-def parse_sensors(text):
-    sensors = {}
+# def parse_sensors(text):
+#     sensors = {}
 
-    text = text.lower()
-    text = text.replace('$', 's')
-    text = text.replace('§', 's')
-    text = text.replace('@', '0')
-    text = text.replace('o', '0')
+#     text = text.lower()
+#     text = text.replace('$', 's')
+#     text = text.replace('§', 's')
+#     text = text.replace('@', '0')
+#     text = text.replace('o', '0')
 
-    # Remove garbage characters
-    text = re.sub(r'[^a-z0-9.= \n]', ' ', text)
+#     # Remove garbage characters
+#     text = re.sub(r'[^a-z0-9.= \n]', ' ', text)
 
-    # Normalize spaces
-    text = re.sub(r'\s+', ' ', text)
+    # # Normalize spaces
+    # text = re.sub(r'\s+', ' ', text)
 
-    # Extract patterns
-    matches = re.findall(r's\s*(\d+)\s*(?:=|is)?\s*([0-9.]+)', text)
+    # # Extract patterns
+    # matches = re.findall(r's\s*(\d+)\s*(?:=|is)?\s*([0-9.]+)', text)
 
-    for num, val in matches:
-        key = f"s{num}"
-        if key in active_sensors:
-            try:
-                sensors[key] = float(val)
-            except:
-                continue
+    # for num, val in matches:
+    #     key = f"s{num}"
+    #     if key in active_sensors:
+    #         try:
+    #             sensors[key] = float(val)
+    #         except:
+    #             continue
 
-    return sensors
+    # return sensors
     
 # ===============================
 # SESSION STATE
@@ -163,15 +163,15 @@ st.subheader("AI Input")
 left, right = st.columns([2,1])
 
 # IMAGE
-with left:
-    file = st.file_uploader("Upload Sensor Image")
-    if file:
-        img = Image.open(file)
-        processed = preprocess_image(img)
-        text = pytesseract.image_to_string(processed, config='--psm 6')
-        sensors = parse_sensors(text)
-        st.session_state.sensor_inputs.update(sensors)
-        st.success(f"{len(sensors)} sensors detected from image")
+# with left:
+#     file = st.file_uploader("Upload Sensor Image")
+#     if file:
+#         img = Image.open(file)
+#         processed = preprocess_image(img)
+#         text = pytesseract.image_to_string(processed, config='--psm 6')
+#         sensors = parse_sensors(text)
+#         st.session_state.sensor_inputs.update(sensors)
+#         st.success(f"{len(sensors)} sensors detected from image")
 
 # ===============================
 # MANUAL INPUT
